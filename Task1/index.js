@@ -198,6 +198,23 @@ form.addEventListener('submit', addItem);
 //delete event
 itemList.addEventListener('click', removeItem);
 
+//create an edit button
+var editbtn = document.createElement('button');
+
+//add classes to delete btn
+editbtn.className = 'btn btn-sm float-right'
+
+//append text node
+editbtn.appendChild(document.createTextNode('EDIT'));
+
+
+li1 = document.getElementsByTagName('li')
+
+//append edit button to li
+for(i=0;i<li1.length;i++)
+{
+    li1[i].appendChild(editbtn.cloneNode(true))
+}
 //remove item
 function removeItem(e)
 {
@@ -218,27 +235,29 @@ function addItem(e)
     //get input value
     var newItem = document.getElementById('item').value;
 
+    //get input value of description
+    var newItem2 = document.getElementById('description');
+    var newItem3 = " " + newItem2.value
+
     //create new Li element
     var li = document.createElement('li');
     
     //add class
     li.className = 'list-group-item';
+
+    // var lineBreak = document.createElement('br')
     
     //add text node with input value
     li.appendChild(document.createTextNode(newItem));
 
+    // li.appendChild(document.createTextNode(lineBreak));
+
+    //add text node with input value description
+    li.appendChild(document.createTextNode(newItem3));
+
     //create delete button element
     var deleteBtn = document.createElement('button');
 
-    //create an edit button
-    var editbtn = document.createElement('button');
-
-    //add classes to delete btn
-    editbtn.className = 'btn btn-danger'
-
-    //append text node
-    editbtn.appendChild(document.createTextNode('EDIT'));
-    
     //add classes to delete btn
     deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
@@ -249,10 +268,18 @@ function addItem(e)
     //append button to li
     li.appendChild(deleteBtn)
 
+    //create an edit button
+    var editbtn = document.createElement('button');
+
+    //add classes to delete btn
+    editbtn.className = 'btn btn-sm float-right'
+
+    //append text node
+    editbtn.appendChild(document.createTextNode('EDIT'));
+
     //append edit button to li
     li.appendChild(editbtn)
-
-
+    
     //append li to list
     itemList.appendChild(li);
 }
@@ -280,4 +307,19 @@ function filterItems(e)
             item.style.display = 'none'
         }
     })
+    Array.from(items).forEach(function(description)
+    {
+        var itemName1 = description.childNodes[1].textContent;
+
+        if(itemName1.toLowerCase().indexOf(text) != -1)
+        {
+            description.style.display = 'block'
+        }
+        else
+        {
+            description.style.display = 'none'
+        }
+    })
 }
+
+ 
