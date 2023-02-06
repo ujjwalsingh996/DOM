@@ -134,9 +134,20 @@ function onSubmit(e) {
         // myObj_Deserialized = JSON.parse(localStorage.getItem(emailInput.value))
 
         //storing it on the page
-        const li = document.createElement('Li');
-        li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`)) 
-        userList.appendChild(li);
+        // const li = document.createElement('Li');
+        // const delBtn = document.createElement('input');
+        // delBtn.type = 'button'
+        // delBtn.value = 'Delete'
+        // li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`))
+        // li.appendChild(delBtn)
+        // userList.appendChild(li);
+        // userList.appendChild(delBtn);
+
+        // delBtn.onclick = () =>{
+        //     // localStorage.removeItem()
+        //     userList.removeChild(li)
+        // }
+
 
 
         //clearing the fields;

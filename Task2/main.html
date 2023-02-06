@@ -29,17 +29,33 @@
       <script>
         function saveToLocalStorage(event)
         {
-          event.preventDefault();
-          const name = event.target.username.value;
-          const email = event.target.userEmail.value;
+            event.preventDefault();
+            const name = event.target.username.value;
+            const email = event.target.userEmail.value;
 
-          const obj = {
-            name,
-            email
+            const obj = {
+              name,
+              email
+            }
+
+            localStorage.setItem(obj.email, JSON.stringify(obj))
+
+            const userList= document.querySelector('#users');
+
+            const li = document.createElement('Li');
+            const delBtn = document.createElement('input');
+            delBtn.type = 'button'
+            delBtn.value = 'Delete'
+            li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`))
+            li.appendChild(delBtn)
+            userList.appendChild(li);
+            userList.appendChild(delBtn);
+
+            delBtn.onclick = () =>{
+            localStorage.removeItem(obj.email)
+            userList.removeChild(li)
+            userList.removeChild(delBtn)
           }
-
-          localStorage.setItem(obj.email, JSON.stringify(obj))
-          showUserOnScreen(obj);
         }
       </script>
 
