@@ -86,16 +86,16 @@
 //    }
 // }
 
-localStorage.setItem('name', 'Bob')
-localStorage.removeItem('name');
+// localStorage.setItem('name', 'Bob')
+// localStorage.removeItem('name');
 
-sessionStorage.setItem('name', 'John');
-// sessionStorage.removeItem('name');
-sessionStorage.setItem('name', 'Bob');
+// sessionStorage.setItem('name', 'John');
+// // sessionStorage.removeItem('name');
+// sessionStorage.setItem('name', 'Bob');
 
-document.cookie = 'name=Kyle; expires=' + new Date(2024, 0 ,1).toUTCString
+// document.cookie = 'name=Kyle; expires=' + new Date(2024, 0 ,1).toUTCString
 
-document.cookie = 'lastName=Smith; expires=' + new Date(2024, 0 ,1).toUTCString
+// document.cookie = 'lastName=Smith; expires=' + new Date(2024, 0 ,1).toUTCString
 
 const myForm = document.querySelector('#my-form');
 const nameInput = document.querySelector('#name');
@@ -117,9 +117,22 @@ function onSubmit(e) {
     }
     else
     {
+
+        //converting details into object
+        var myObj = {
+            name : nameInput.value,
+            email : emailInput.value
+        } 
+        //converting the object to string to store in local storage
+        myObj_Serialized = JSON.stringify(myObj)
+
         //adding in the local storage on submit
-        localStorage.setItem('name', nameInput.value)
-        localStorage.setItem('email', emailInput.value)
+        localStorage.setItem('myObj', myObj_Serialized)
+
+        //deserializing the object
+        myObj_Deserialized = JSON.parse(localStorage.getItem('myObj'))
+
+        console.log(myObj_Deserialized)
 
         //clearing the fields;
         nameInput.value = ''    
