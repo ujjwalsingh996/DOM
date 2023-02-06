@@ -44,17 +44,29 @@
 
             const li = document.createElement('Li');
             const delBtn = document.createElement('input');
+            const editBtn = document.createElement('input');
+            editBtn.type = 'button';
+            editBtn.value = 'EDIT'
             delBtn.type = 'button'
-            delBtn.value = 'Delete'
+            delBtn.value = 'DELETE'
             li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`))
+            li.appendChild(editBtn)
             li.appendChild(delBtn)
             userList.appendChild(li);
-            userList.appendChild(delBtn);
 
-            delBtn.onclick = () =>{
+            delBtn.onclick = () => {
             localStorage.removeItem(obj.email)
             userList.removeChild(li)
-            userList.removeChild(delBtn)
+          }
+            editBtn.onclick = () => {
+            
+            deserialized = JSON.parse(localStorage.getItem(obj.email))
+            localStorage.removeItem(obj.email)
+            userList.removeChild(li)
+            document.getElementById("name").value = deserialized.name
+            document.getElementById("email").value = deserialized.email
+            
+            
           }
         }
       </script>
