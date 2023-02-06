@@ -119,20 +119,25 @@ function onSubmit(e) {
     {
 
         //converting details into object
-        var myObj = {
-            name : nameInput.value,
-            email : emailInput.value
-        } 
-        //converting the object to string to store in local storage
-        myObj_Serialized = JSON.stringify(myObj)
+        // var myObj = {
+        //     name : nameInput.value,
+        //     email : emailInput.value
+        // } 
 
-        //adding in the local storage on submit
-        localStorage.setItem('myObj', myObj_Serialized)
+        // //converting the object to string to store in local storage
+        // myObj_Serialized = JSON.stringify(myObj)
 
-        //deserializing the object
-        myObj_Deserialized = JSON.parse(localStorage.getItem('myObj'))
+        // //adding in the local storage on submit
+        // localStorage.setItem(emailInput.value, myObj_Serialized)
 
-        console.log(myObj_Deserialized)
+        // //deserializing the object
+        // myObj_Deserialized = JSON.parse(localStorage.getItem(emailInput.value))
+
+        //storing it on the page
+        const li = document.createElement('Li');
+        li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`)) 
+        userList.appendChild(li);
+
 
         //clearing the fields;
         nameInput.value = ''    
