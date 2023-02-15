@@ -37,8 +37,14 @@
               name,
               email
             }
+            
+            // localStorage.setItem(obj.email, JSON.stringify(obj))
 
-            localStorage.setItem(obj.email, JSON.stringify(obj))
+            axios.post('https://crudcrud.com/api/49bb33d63da34122b06dccf3e84ee079/appointmentData',obj)
+            .then((response) => {})
+            .catch((err) => {
+              document.body.innerHTML = document.body.innerHTML + "<h4> Something Wrong</h4>"
+              console.log(err)})
 
             const userList= document.querySelector('#users');
 
@@ -82,5 +88,7 @@
     
 
     <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js">
+    </script>
   </body>
 </html>
