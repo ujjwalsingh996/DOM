@@ -1,94 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>JS For Beginners</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <header>
-      <h1>JS For Beginners</h1>
-    </header>
 
-    <section class="container">
-      <form id="my-form" onsubmit="saveToLocalStorage(event)">
-        <h1>Add User</h1>
-        <div class="msg"></div>
-        <div>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="username">
-        </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="text" id="email" name="userEmail">
-        </div>
-        <input class="btn" type="submit" value="Submit">
-      </form>
-      <script>
-        function saveToLocalStorage(event)
-        {
-            event.preventDefault();
-            const name = event.target.username.value;
-            const email = event.target.userEmail.value;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>JS For Beginners</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-            const obj = {
-              name,
-              email
-            }
-            
-            // localStorage.setItem(obj.email, JSON.stringify(obj))
+<body>
+  <header>
+    <h1>JS For Beginners</h1>
+  </header>
 
-            axios.post('https://crudcrud.com/api/49bb33d63da34122b06dccf3e84ee079/appointmentData',obj)
-            .then((response) => {})
-            .catch((err) => {
-              document.body.innerHTML = document.body.innerHTML + "<h4> Something Wrong</h4>"
-              console.log(err)})
+  <section class="container">
+    <form id="my-form" onsubmit="saveToLocalStorage(event)">
+      <h1>Add User</h1>
+      <div class="msg"></div>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="username">
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="userEmail">
+      </div>
+      <input class="btn" type="submit" value="Submit">
+    </form>
+    <script>
+      function saveToLocalStorage(event) {
+        event.preventDefault();
+        const name = event.target.username.value;
+        const email = event.target.userEmail.value;
 
-            const userList= document.querySelector('#users');
-
-            const li = document.createElement('Li');
-            const delBtn = document.createElement('input');
-            const editBtn = document.createElement('input');
-            editBtn.type = 'button';
-            editBtn.value = 'EDIT'
-            delBtn.type = 'button'
-            delBtn.value = 'DELETE'
-            li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`))
-            li.appendChild(editBtn)
-            li.appendChild(delBtn)
-            userList.appendChild(li);
-
-            delBtn.onclick = () => {
-            localStorage.removeItem(obj.email)
-            userList.removeChild(li)
-          }
-            editBtn.onclick = () => {
-            
-            deserialized = JSON.parse(localStorage.getItem(obj.email))
-            localStorage.removeItem(obj.email)
-            userList.removeChild(li)
-            document.getElementById("name").value = deserialized.name
-            document.getElementById("email").value = deserialized.email
-            
-            
-          }
+        const obj = {
+          name,
+          email
         }
-      </script>
 
-      <ul id="users"></ul>
+        // localStorage.setItem(obj.email, JSON.stringify(obj))
 
-      <!-- <ul class="items">
+        axios.post('https://crudcrud.com/api/49bb33d63da34122b06dccf3e84ee079/appointmentData', obj)
+          .then((response) => { })
+          .catch((err) => {
+            document.body.innerHTML = document.body.innerHTML + "<h4> Something Wrong</h4>"
+            console.log(err)
+          })
+
+        const userList = document.querySelector('#users');
+
+        const li = document.createElement('Li');
+        const delBtn = document.createElement('input');
+        const editBtn = document.createElement('input');
+        editBtn.type = 'button';
+        editBtn.value = 'EDIT'
+        delBtn.type = 'button'
+        delBtn.value = 'DELETE'
+        li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`))
+        li.appendChild(editBtn)
+        li.appendChild(delBtn)
+        userList.appendChild(li);
+
+        delBtn.onclick = () => {
+          localStorage.removeItem(obj.email)
+          userList.removeChild(li)
+        }
+        editBtn.onclick = () => {
+
+          deserialized = JSON.parse(localStorage.getItem(obj.email))
+          localStorage.removeItem(obj.email)
+          userList.removeChild(li)
+          document.getElementById("name").value = deserialized.name
+          document.getElementById("email").value = deserialized.email
+
+
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        axios.get('https://crudcrud.com/api/49bb33d63da34122b06dccf3e84ee079/appointmentData')
+          .then((response) => {
+            for (let i = 0; i < response.data.length; i++) {
+
+              const userList = document.querySelector('#users');
+
+              const li = document.createElement('Li');
+
+              const delBtn = document.createElement('input');
+              
+              const editBtn = document.createElement('input');
+              
+              editBtn.type = 'button';
+              editBtn.value = 'EDIT'
+              delBtn.type = 'button'
+              delBtn.value = 'DELETE'
+              li.appendChild(document.createTextNode(`${response.data[i].name} : ${response.data[i].email}`))
+              li.appendChild(editBtn)
+              li.appendChild(delBtn)
+              userList.appendChild(li);
+
+              // delBtn.onclick = () => {
+              //   localStorage.removeItem(obj.email)
+              //   userList.removeChild(li)
+              // }
+              // editBtn.onclick = () => {
+
+              //   deserialized = JSON.parse(localStorage.getItem(obj.email))
+              //   localStorage.removeItem(obj.email)
+              //   userList.removeChild(li)
+              //   document.getElementById("name").value = deserialized.name
+              //   document.getElementById("email").value = deserialized.email
+
+
+              // }
+            }
+            console.log(response)
+          })
+          .catch((err) => { console.log(err) })
+
+
+      })
+
+    </script>
+
+    <ul id="users"></ul>
+
+    <!-- <ul class="items">
         <li class="item">Item 1</li>
         <li class="item">Item 2</li>
         <li class="item">Item 3</li>
       </ul> -->
-    </section>
-    
+  </section>
 
-    <script src="main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js">
-    </script>
-  </body>
+
+  <script src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js">
+  </script>
+</body>
+
 </html>
